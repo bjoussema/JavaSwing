@@ -321,6 +321,11 @@ public class Produit extends javax.swing.JFrame {
 
         jButton8.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
         jButton8.setText("Imprimer");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton8);
         jButton8.setBounds(1160, 680, 180, 50);
 
@@ -433,6 +438,22 @@ public class Produit extends javax.swing.JFrame {
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try {
+
+            DefaultTableModel tableModel = (DefaultTableModel) tbl_pr.getModel();
+            HashMap<String, Object> para = new HashMap<>();
+            para.put("title", "");
+
+            JasperPrint jasperPrint = null;
+            JasperCompileManager.compileReportToFile("D:\\JavaSwing\\version mariem plast 02-03-2019\\application_gestion_stock\\projet_junior\\src\\Classes\\printProduit.jrxml");
+            jasperPrint = JasperFillManager.fillReport("D:\\JavaSwing\\version mariem plast 02-03-2019\\application_gestion_stock\\projet_junior\\src\\Classes\\printProduit.jasper", para, new JRTableModelDataSource(tableModel));
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Echec de l'operation !!");
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     private void tablePrint() {
         try {
             String t[] = {"date", "id_pr", "libellé", "prix", "caractéristique", "fournisseur", "stock"};
@@ -441,7 +462,8 @@ public class Produit extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Echec de l'operation !!");
         }
-    } 
+    }
+
     /**
      * @param args the command line arguments
      */
